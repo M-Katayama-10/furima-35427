@@ -52,6 +52,31 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Days must be other than 1')
       end
+      it 'category_idが空では登録できない' do
+        @item.category_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
+      end
+      it 'condition_idが空では登録できない' do
+        @item.condition_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Condition can't be blank")
+      end
+      it 'fee_idが空では登録できない' do
+        @item.fee_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Fee can't be blank")
+      end
+      it 'area_idが空では登録できない' do
+        @item.area_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Area can't be blank")
+      end
+      it 'days_idが空では登録できない' do
+        @item.days_id = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Days can't be blank")
+      end
       it 'priceが空では登録できない' do
         @item.price = ''
         @item.valid?
