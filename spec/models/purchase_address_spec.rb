@@ -13,6 +13,10 @@ RSpec.describe PurchaseAddress, type: :model do
       it 'postal_code、area_id、municipality、house_number、phone_number、tokenが存在すれば購入できる' do
         expect(@purchase_address).to be_valid
       end
+      it 'buildingが空でも購入できる' do
+        @purchase_address.building = ''
+        expect(@purchase_address).to be_valid
+      end
     end
     context '購入できないとき' do
       it 'postal_codeが空では購入できない' do
@@ -79,6 +83,11 @@ RSpec.describe PurchaseAddress, type: :model do
         @purchase_address.phone_number = 'ddd2345gggg'
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Phone number is invalid")
+      end
+      it 'phone_numberが12桁以上では購入できない' do
+        @purchase_address.phone_number = '090111122223'
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Phone number is too long (maximum is 11 characters)")
       end
       it 'userが紐付いていないと購入できない' do
         @purchase_address.user_id = nil
